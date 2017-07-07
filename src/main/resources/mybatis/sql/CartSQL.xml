@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tb.cart.dao.CartDao">
+    
+    <select id="queryMyCartList" resultType="com.tb.cart.pojo.Cart"  parameterType="com.tb.common.org.gtmd.frame.tools.paramData">
+        
+        SELECT A.* 
+        FROM 
+        TB_CART A  
+        WHERE  A.USER_ID=#{USERID}
+        ORDER BY A.CREATE_TIME DESC
+
+    </select>
+    
+    
+    <select id="queryMyCartListToWeb" resultType="com.tb.cart.pojo.Cart"  parameterType="com.tb.common.org.gtmd.frame.tools.paramData">
+        
+        SELECT A.* 
+        FROM 
+        TB_CART A  
+        WHERE  A.USER_ID=#{USERID} 
+        and a.item_id in
+         <foreach collection="ITEMIDS" item="itemId" index="index"
+            open="(" close=")" separator=",">
+            #{itemId}
+        </foreach>
+        ORDER BY A.CREATE_TIME DESC
+
+    </select>
+	
+	
+</mapper>
